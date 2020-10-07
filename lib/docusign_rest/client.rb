@@ -260,6 +260,22 @@ module DocusignRest
       end
     end
 
+    def get_signer_attachment_tabs(tabs)
+      Array(tabs).map do |tab|
+        {
+          documentId: tab[:document_id],
+          anchorString: tab[:anchor_string],
+          anchorXOffset: tab[:anchor_x_offset],
+          anchorYOffset: tab[:anchor_y_offset],
+          width: tab[:width],
+          height: tab[:heigth],
+          pageNumber: tab[:page_number],
+          xPosition: tab[:x_position],
+          yPosition: tab[:y_position],
+        }
+      end
+    end
+
     # TODO (2014-02-03) jonk => document
     def get_signer_tabs(tabs)
       Array(tabs).map do |tab|
@@ -413,7 +429,7 @@ module DocusignRest
           radioGroupTabs:       get_tabs(signer[:radio_group_tabs], options, index),
           initialHereTabs:      get_tabs(signer[:initial_here_tabs], options.merge!(initial_here_tab: true), index),
           signHereTabs:         get_tabs(signer[:sign_here_tabs], options.merge!(sign_here_tab: true), index),
-          signerAttachmentTabs: nil,
+          signerAttachmentTabs: get_tabs(signer[:signer_attachment_tabs], options, index),
           ssnTabs:              nil,
           textTabs:             get_tabs(signer[:text_tabs], options, index),
           titleTabs:            get_tabs(signer[:title_tabs], options, index),
@@ -680,7 +696,8 @@ module DocusignRest
             numberTabs:     get_signer_tabs(signer[:number_tabs]),
             fullNameTabs:   get_signer_tabs(signer[:fullname_tabs]),
             dateTabs:       get_signer_tabs(signer[:date_tabs]),
-            signHereTabs:   get_sign_here_tabs(signer[:sign_here_tabs])
+            signHereTabs:   get_sign_here_tabs(signer[:sign_here_tabs],
+            signerAtachmentTabs:   get_signer_attachment_tabs(signer[:signer_attachment_tabs])
           }
         }
         signers_array << signers_hash
@@ -1790,7 +1807,7 @@ module DocusignRest
         radioGroupTabs:       nil,
         initialHereTabs:      get_tabs(tabs[:initial_here_tabs], options.merge!(initial_here_tab: true), index),
         signHereTabs:         get_tabs(tabs[:sign_here_tabs], options.merge!(sign_here_tab: true), index),
-        signerAttachmentTabs: nil,
+        signerAttachmentTabs: get_tabs(signer[:signer_attachment_tabs], options, index),
         ssnTabs:              nil,
         textTabs:             get_tabs(tabs[:text_tabs], options, index),
         titleTabs:            nil,
