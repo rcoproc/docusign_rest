@@ -272,6 +272,8 @@ module DocusignRest
           pageNumber: tab[:page_number],
           xPosition: tab[:x_position],
           yPosition: tab[:y_position],
+          tooltip: tab[:tooltip],
+          name: tab[:name]
         }
       end
     end
