@@ -696,8 +696,8 @@ module DocusignRest
             numberTabs:     get_signer_tabs(signer[:number_tabs]),
             fullNameTabs:   get_signer_tabs(signer[:fullname_tabs]),
             dateTabs:       get_signer_tabs(signer[:date_tabs]),
-            signHereTabs:   get_sign_here_tabs(signer[:sign_here_tabs],
-            signerAtachmentTabs:   get_signer_attachment_tabs(signer[:signer_attachment_tabs])
+            signHereTabs:   get_sign_here_tabs(signer[:sign_here_tabs]),
+            signerAttachmentTabs:   get_signer_attachment_tabs(signer[:signer_attachment_tabs])
           }
         }
         signers_array << signers_hash
